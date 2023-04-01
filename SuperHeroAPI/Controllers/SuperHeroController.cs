@@ -9,7 +9,7 @@ namespace SuperHeroAPI.Controllers
     public class SuperHeroController : ControllerBase
     {
 
-        private static List<SuperHero> superHeroes = new List<SuperHero>()
+        private static List<SuperHero> superHeroes = new ()
         {
             new SuperHero
             {
@@ -64,6 +64,18 @@ namespace SuperHeroAPI.Controllers
             hero.Name = request.Name;
             hero.Place = request.Place;
             
+            return Ok(superHeroes);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SuperHero>> DeleteHero(int id)
+        {
+            var hero = superHeroes.Find(x => x.Id == id);
+            if (hero == null)
+                return NotFound($"Nie mam takiego id {id} w bazie.");
+
+           superHeroes.Remove(hero);    
+
             return Ok(superHeroes);
         }
     }
