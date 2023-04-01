@@ -43,20 +43,19 @@ namespace SuperHeroAPI.Controllers
         {
             var result = _superHeroService.UpdateHero(id, request);
 
-            if (result == null)
-                return NotFound($"Nie mam takiego id {id} w bazie.");
-            
-            return Ok(result);
+            if (result != null)
+                return Ok(result);
+            return NotFound($"Nie mam takiego id {id} w bazie.");
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<SuperHero>> DeleteHero(int id)
         {
             var result = _superHeroService.DeleteHero(id);
-            if (result == null)
-                return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
+            if (result != null)
+                return Ok(result);
 
-            return Ok(result);
+            return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
         }
     }
 }
