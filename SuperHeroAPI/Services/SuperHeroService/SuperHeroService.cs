@@ -72,7 +72,6 @@ namespace SuperHeroAPI.Services.SuperHeroService
 
         public List<SuperHero> UpdateHero(ObjectId id, SuperHero request)
         {
-            ;
             var hero = _superHeroes.Find(x => x.Id == id);
             if (hero == null)
                 return null;
