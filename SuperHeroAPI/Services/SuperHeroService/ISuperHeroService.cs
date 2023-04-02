@@ -1,13 +1,14 @@
-﻿using SuperHeroAPI.Models;
+﻿using MongoDB.Bson;
+using SuperHeroAPI.Data.Models;
 
 namespace SuperHeroAPI.Services.SuperHeroService
 {
     public interface ISuperHeroService
     {
         List<SuperHero> GetAllHeroes();
-        SuperHero GetSingleHero(int id);
+        SuperHero GetSingleHero(ObjectId id);
         List<SuperHero> NewHero(SuperHero hero);
-        List<SuperHero> UpdateHero(int id, SuperHero request);
-        List<SuperHero> DeleteHero(int id);
+        List<SuperHero> UpdateHero(ObjectId id, SuperHero request);
+        List<SuperHero> DeleteHero(ObjectId id);
     }
 }
