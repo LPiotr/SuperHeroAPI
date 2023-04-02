@@ -24,7 +24,8 @@ namespace SuperHeroAPI.Controllers
         {
             var result = _superHeroService.GetAllHeroes();
 
-            return Ok(result);
+            return await Task.FromResult(result);
+            //return Ok(result);
         }
 
         /// <summary>
@@ -34,9 +35,9 @@ namespace SuperHeroAPI.Controllers
         /// <returns></returns>
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<SuperHero>> GetSingleHero(ObjectId id)
+        public async Task<ActionResult<SuperHero>> GetSingleHero(int id)
         {
-            var result = _superHeroService.GetSingleHero(id);
+            var result = await Task.FromResult(_superHeroService.GetSingleHero(id));
             if (result == null)
                 return NotFound($"Nie mam takiego id {id} w bazie.");
             return Ok(result);
@@ -62,12 +63,12 @@ namespace SuperHeroAPI.Controllers
         /// <returns></returns>
         /// 
         [HttpPut("{id}")]
-        public async Task<ActionResult<SuperHero>> UpdateHero(ObjectId id, SuperHero request)
+        public async Task<ActionResult<SuperHero>> UpdateHero(int id, SuperHero request)
         {
             var result = _superHeroService.UpdateHero(id, request);
-
             if (result != null)
                 return Ok(result);
+
             return NotFound($"Nie mam takiego id {id} w bazie.");
         }
 
@@ -77,13 +78,13 @@ namespace SuperHeroAPI.Controllers
         /// <param name="objectId"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SuperHero>> DeleteHero(ObjectId objectId)
+        public async Task<ActionResult<SuperHero>> DeleteHero(int id)
         {
-            var result = _superHeroService.DeleteHero(objectId);
+            var result = _superHeroService.DeleteHero(id);
             if (result != null)
                 return Ok(result);
 
-            return NotFound($"Heros o tym id: {objectId} nie znajduje się w bazie");
+            return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
         }
     }
 }

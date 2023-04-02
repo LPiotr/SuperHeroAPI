@@ -4,7 +4,7 @@ namespace SuperHeroAPI.Data.Models;
 
     public class SuperHero
     {
-        public ObjectId Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

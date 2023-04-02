@@ -7,39 +7,38 @@ namespace SuperHeroAPI.Services.SuperHeroService
 {
     public class SuperHeroService : ISuperHeroService
     {
-        private IMongoDatabase _database;   
-        private IMongoCollection<SuperHero> _superHeroes;
+        //private IMongoDatabase _database;   
+        //private IMongoCollection<SuperHero> _superHeroes;
 
-        public SuperHeroService(IMongoCollection settings)
-        {
-            var client = new MongoClient();
-            var database = client.GetDatabase();
-
-            _superHeroes = database.GetCollection<SuperHero>();
-        }
-
-        //private static List<SuperHero> _superHeroes = new()
+        //public SuperHeroService(IMongoCollection settings)
         //{
-        //    new SuperHero
-        //    {
-        //            Id = ObjectId.Parse("6428b620b0a21f44dc1df841"),
-        //            Name = "Spider Man",
-        //            FirstName = "Peter",
-        //            LastName = "Parker",
-        //            Place = "New York City"
-        //    },
-        //    new SuperHero
-        //    {
-        //            Id = ObjectId.Parse("6428b620b0a21f44dc1df840"),
-        //            Name = "Iron Man",
-        //            FirstName = "Tony",
-        //            LastName = "Stark",
-        //            Place = "Malibu"
-        //    }
-        //};
-        public List<SuperHero> DeleteHero(ObjectId id)
+        //    var client = new MongoClient();
+        //    var database = client.GetDatabase();
+
+        //    _superHeroes = database.GetCollection<SuperHero>();
+        //}
+
+        private static List<SuperHero> _superHeroes = new()
         {
-            
+            new SuperHero
+            {
+                    Id = 1,
+                    Name = "Spider Man",
+                    FirstName = "Peter",
+                    LastName = "Parker",
+                    Place = "New York City"
+            },
+            new SuperHero
+            {
+                    Id = 2,
+                    Name = "Iron Man",
+                    FirstName = "Tony",
+                    LastName = "Stark",
+                    Place = "Malibu"
+            }
+        };
+        public List<SuperHero> DeleteHero(int id)
+        {
             var hero = _superHeroes.Find(x => x.Id == id);
             if (hero == null)
                 return null;
@@ -54,9 +53,8 @@ namespace SuperHeroAPI.Services.SuperHeroService
             return _superHeroes;
         }
 
-        public SuperHero GetSingleHero(ObjectId id)
+        public SuperHero GetSingleHero(int id)
         {
-            //var objectId = ObjectId.Parse(id);
             var hero = _superHeroes.Find(x => x.Id == id);
             if (hero == null)
                 return null;
@@ -70,7 +68,7 @@ namespace SuperHeroAPI.Services.SuperHeroService
             return _superHeroes;
         }
 
-        public List<SuperHero> UpdateHero(ObjectId id, SuperHero request)
+        public List<SuperHero> UpdateHero(int id, SuperHero request)
         {
             var hero = _superHeroes.Find(x => x.Id == id);
             if (hero == null)

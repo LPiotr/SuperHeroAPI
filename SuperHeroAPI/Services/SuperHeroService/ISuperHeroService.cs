@@ -6,9 +6,9 @@ namespace SuperHeroAPI.Services.SuperHeroService
     public interface ISuperHeroService
     {
         List<SuperHero> GetAllHeroes();
-        SuperHero GetSingleHero(ObjectId id);
+        SuperHero GetSingleHero(int id);
         List<SuperHero> NewHero(SuperHero hero);
-        List<SuperHero> UpdateHero(ObjectId id, SuperHero request);
-        List<SuperHero> DeleteHero(ObjectId id);
+        List<SuperHero> UpdateHero(int id, SuperHero request);
+        List<SuperHero> DeleteHero(int id);
     }
 }
