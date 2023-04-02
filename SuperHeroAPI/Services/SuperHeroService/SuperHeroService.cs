@@ -1,85 +1,45 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using SuperHeroAPI.Data;
-using SuperHeroAPI.Data.Models;
+using SuperHeroAPI.Models;
 
 namespace SuperHeroAPI.Services.SuperHeroService
 {
     public class SuperHeroService : ISuperHeroService
     {
-        //private IMongoDatabase _database;   
-        //private IMongoCollection<SuperHero> _superHeroes;
 
-        //public SuperHeroService(IMongoCollection settings)
-        //{
-        //    var client = new MongoClient();
-        //    var database = client.GetDatabase();
-
-        //    _superHeroes = database.GetCollection<SuperHero>();
-        //}
-
-        private static List<SuperHero> _superHeroes = new()
+        private readonly IMongoCollection<SuperHero> _superHeroes;
+        public SuperHeroService(ISuperHeroDatabaseSettings settings, IMongoClient mongoClient)
         {
-            new SuperHero
-            {
-                    Id = 1,
-                    Name = "Spider Man",
-                    FirstName = "Peter",
-                    LastName = "Parker",
-                    Place = "New York City"
-            },
-            new SuperHero
-            {
-                    Id = 2,
-                    Name = "Iron Man",
-                    FirstName = "Tony",
-                    LastName = "Stark",
-                    Place = "Malibu"
-            }
-        };
-        public List<SuperHero> DeleteHero(int id)
+            var database = mongoClient.GetDatabase(settings.DatabaseName);
+            _superHeroes =   database.GetCollection<SuperHero>(settings.SuperHeroCollectionName);
+            
+        }
+
+        public void Delete(string id)
         {
-            var hero = _superHeroes.Find(x => x.Id == id);
-            if (hero == null)
-                return null;
-
-            _superHeroes.Remove(hero);
-
-            return _superHeroes;
+            _superHeroes.DeleteOne(hero => hero.Id == id);
         }
 
         public List<SuperHero> GetAllHeroes()
         {
-            return _superHeroes;
+            return _superHeroes.Find(heroes => true).ToList();
         }
 
-        public SuperHero GetSingleHero(int id)
+        public SuperHero Get(string id)
         {
-            var hero = _superHeroes.Find(x => x.Id == id);
-            if (hero == null)
-                return null;
+            return _superHeroes.Find(hero => hero.Id == id).FirstOrDefault();
+        }
 
+        public SuperHero Create(SuperHero hero)
+        {
+            _superHeroes.InsertOne(hero);
             return hero;
         }
 
-        public List<SuperHero> NewHero(SuperHero hero)
+        public void Put(string id, SuperHero hero)
         {
-            _superHeroes.Add(hero);
-            return _superHeroes;
-        }
-
-        public List<SuperHero> UpdateHero(int id, SuperHero request)
-        {
-            var hero = _superHeroes.Find(x => x.Id == id);
-            if (hero == null)
-                return null;
-
-            hero.FirstName = request.FirstName;
-            hero.LastName = request.LastName;
-            hero.Name = request.Name;
-            hero.Place = request.Place;
-
-            return _superHeroes;
+            _superHeroes.ReplaceOne(hero => hero.Id == id, hero);
         }
     }
 }
