@@ -22,7 +22,7 @@ namespace SuperHeroAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> GetAllHeroes()
         {
-            var result = _superHeroService.GetAllHeroes();
+            var result = await Task.FromResult(_superHeroService.GetAllHeroes());
 
             return await Task.FromResult(result);
             //return Ok(result);
@@ -40,6 +40,7 @@ namespace SuperHeroAPI.Controllers
             var result = await Task.FromResult(_superHeroService.GetSingleHero(id));
             if (result == null)
                 return NotFound($"Nie mam takiego id {id} w bazie.");
+            
             return Ok(result);
         }
 
@@ -51,7 +52,8 @@ namespace SuperHeroAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<List<SuperHero>>> NewHero(SuperHero hero)
         {
-            var result = _superHeroService.NewHero(hero);
+            var result = await Task.FromResult(_superHeroService.NewHero(hero));
+            
             return Ok(result);
         }
 
@@ -65,7 +67,7 @@ namespace SuperHeroAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<SuperHero>> UpdateHero(int id, SuperHero request)
         {
-            var result = _superHeroService.UpdateHero(id, request);
+            var result = await Task.FromResult(_superHeroService.UpdateHero(id, request));
             if (result != null)
                 return Ok(result);
 
