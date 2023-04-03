@@ -35,7 +35,7 @@ namespace SuperHeroAPI.Services.SuperHeroService
             return hero;
         }
 
-        public void Put(string id, SuperHero hero)
+        public void Update(string id, SuperHero hero)
         {
             _superHeroes.ReplaceOne(hero => hero.Id == id, hero);
         }

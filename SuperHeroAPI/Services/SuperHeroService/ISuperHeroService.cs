@@ -9,7 +9,7 @@ namespace SuperHeroAPI.Services.SuperHeroService
         List<SuperHero> GetAllHeroes();
         SuperHero Get(string id);
         SuperHero Create(SuperHero hero);
-        void Put(string id, SuperHero request);
+        void Update(string id, SuperHero request);
         void Delete(string id);
     }
 }

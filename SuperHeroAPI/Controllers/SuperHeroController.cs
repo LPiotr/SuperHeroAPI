@@ -70,7 +70,7 @@ namespace SuperHeroAPI.Controllers
         /// <returns></returns>
         ///
         [HttpPut("{id}")]
-        public ActionResult Update(string id, SuperHero hero)
+        public ActionResult Put(string id, SuperHero hero)
         {
             var existingStudent =_superHeroService.Get(id);
             if (existingStudent == null)
@@ -78,7 +78,7 @@ namespace SuperHeroAPI.Controllers
                 return NotFound($"Nie mam takiego id {id} w bazie.");
             }
             
-            _superHeroService.Put(id, hero);
+            _superHeroService.Update(id, hero);
             
             return NoContent();
         }
