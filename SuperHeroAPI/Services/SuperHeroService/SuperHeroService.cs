@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using SuperHeroAPI.Data;
 using SuperHeroAPI.Models;
 
 namespace SuperHeroAPI.Services.SuperHeroService
@@ -12,8 +11,7 @@ namespace SuperHeroAPI.Services.SuperHeroService
         public SuperHeroService(ISuperHeroDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _superHeroes =   database.GetCollection<SuperHero>(settings.SuperHeroCollectionName);
-            
+            _superHeroes =   database.GetCollection<SuperHero>(settings.SuperHeroesCollectionName);
         }
 
         public void Delete(string id)

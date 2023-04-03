@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 using SuperHeroAPI.Models;
@@ -15,6 +16,8 @@ namespace SuperHeroAPI.Controllers
         public SuperHeroController(ISuperHeroService superHeroService)
         {
            _superHeroService = superHeroService;
+
+           ObjectIdSerializer objectIdSerializer = new();
         }
 
         /// <summary>
@@ -33,8 +36,7 @@ namespace SuperHeroAPI.Controllers
         /// Get one hero specified by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        
+        /// <returns>Object</returns>
         [HttpGet("{id}")]
         public ActionResult<SuperHero> Get(string id)
         {
@@ -51,7 +53,7 @@ namespace SuperHeroAPI.Controllers
         /// Create new hero
         /// </summary>
         /// <param name="hero"></param>
-        /// <returns></returns>
+        /// <returns>Object collection</returns>
         [HttpPost]
         public ActionResult<SuperHero> Post([FromBody] SuperHero hero)
         {
@@ -66,7 +68,7 @@ namespace SuperHeroAPI.Controllers
         /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        /// 
+        ///
         [HttpPut("{id}")]
         public ActionResult Update(string id, SuperHero hero)
         {
