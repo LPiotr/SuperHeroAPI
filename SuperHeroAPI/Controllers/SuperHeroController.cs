@@ -99,7 +99,7 @@ namespace SuperHeroAPI.Controllers
                 return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
             }
 
-            _superHeroService.Delete(id);
+            _superHeroService.Remove(id);
 
             return Ok($"Heros o tym Id = {id} został usunięty");
         }

@@ -12,7 +12,15 @@ namespace SuperHeroAPI.Data
         {
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("SuperHeroesDb");
-            _superHeroes = database.GetCollection<SuperHero>("SuperHeroes");
+
+            try
+            {
+                _superHeroes = database.GetCollection<SuperHero>("SuperHeroes");
+            }
+            catch(MongoException ex)
+            {
+                throw new ApplicationException("Brak połączenia z bazą MongoDB", ex);
+            }
         }
 
         public List<SuperHero> SuperHeroes => _superHeroes.Find(h => true).ToList();

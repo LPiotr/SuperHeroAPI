@@ -14,7 +14,7 @@ namespace SuperHeroAPI.Services.SuperHeroService
             _superHeroes =   database.GetCollection<SuperHero>(settings.SuperHeroesCollectionName);
         }
 
-        public void Delete(string id)
+        public void Remove(string id)
         {
             _superHeroes.DeleteOne(hero => hero.Id == id);
         }

@@ -10,6 +10,6 @@ namespace SuperHeroAPI.Services.SuperHeroService
         SuperHero Get(string id);
         SuperHero Create(SuperHero hero);
         void Update(string id, SuperHero request);
-        void Delete(string id);
+        void Remove(string id);
     }
 }
