@@ -25,19 +25,17 @@ namespace SuperHeroAPI.Data
 
         public List<SuperHero> SuperHeroes => _superHeroes.Find(h => true).ToList();
 
-        public SuperHero GetSuperHeroById(string id) =>
-            _superHeroes.Find(h => h.Id == id).FirstOrDefault();
+        public SuperHero GetSuperHeroById(string id) => _superHeroes.Find(h => h.Id == id).FirstOrDefault();
 
         public SuperHero CreateSuperHero(SuperHero hero)
         {
             _superHeroes.InsertOne(hero);
+            
             return hero;
         }
 
-        public void UpdateSuperHero(string id, SuperHero heroIn) =>
-            _superHeroes.ReplaceOne(h => h.Id == id, heroIn);
+        public void UpdateSuperHero(string id, SuperHero heroIn) => _superHeroes.ReplaceOne(h => h.Id == id, heroIn);
 
-        public void DeleteSuperHero(string id) =>
-            _superHeroes.DeleteOne(h => h.Id == id);
+        public void DeleteSuperHero(string id) => _superHeroes.DeleteOne(h => h.Id == id);
     }
 }

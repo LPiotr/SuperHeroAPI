@@ -20,9 +20,9 @@ namespace SuperHeroAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<SuperHero>>> GetAllHeroes()
+        public async Task<ActionResult<List<SuperHero>>> Get()
         {
-            var result = await Task.FromResult(_superHeroService.GetAllHeroes());
+            var result = await Task.FromResult(_superHeroService.Get());
 
             return await Task.FromResult(result);
         }
@@ -89,7 +89,7 @@ namespace SuperHeroAPI.Controllers
         {
             var hero = _superHeroService.Get(id);
 
-            if (hero != null)
+            if (hero == null)
             {
                 return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
             }

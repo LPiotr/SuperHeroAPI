@@ -5,20 +5,20 @@ namespace SuperHeroAPI.Services.SuperHeroService
 {
     public class SuperHeroService : ISuperHeroService
     {
-
         private readonly IMongoCollection<SuperHero> _superHeroes;
         public SuperHeroService(ISuperHeroDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _superHeroes =   database.GetCollection<SuperHero>(settings.SuperHeroesCollectionName);
+            _superHeroes = database.GetCollection<SuperHero>(settings.SuperHeroesCollectionName);
         }
 
-        public void Remove(string id)
+        public SuperHero Create(SuperHero hero)
         {
-            _superHeroes.DeleteOne(hero => hero.Id == id);
+            _superHeroes.InsertOne(hero);
+            return hero;
         }
 
-        public List<SuperHero> GetAllHeroes()
+        public List<SuperHero> Get()
         {
             return _superHeroes.Find(heroes => true).ToList();
         }
@@ -28,10 +28,9 @@ namespace SuperHeroAPI.Services.SuperHeroService
             return _superHeroes.Find(hero => hero.Id == id).FirstOrDefault();
         }
 
-        public SuperHero Create(SuperHero hero)
+        public void Remove(string id)
         {
-            _superHeroes.InsertOne(hero);
-            return hero;
+            _superHeroes.DeleteOne(hero => hero.Id == id);
         }
 
         public void Update(string id, SuperHero hero)
