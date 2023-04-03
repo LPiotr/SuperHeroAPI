@@ -9,10 +9,10 @@ namespace SuperHeroAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Put : ControllerBase
+    public class SuperHeroController : ControllerBase
     {
         private readonly ISuperHeroService _superHeroService;
-        public Put(ISuperHeroService superHeroService)
+        public SuperHeroController(ISuperHeroService superHeroService)
         {
            _superHeroService = superHeroService;
         }
