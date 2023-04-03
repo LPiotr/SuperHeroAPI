@@ -5,7 +5,6 @@ namespace SuperHeroAPI.Services.SuperHeroService
 {
     public interface ISuperHeroService
     {
-
         List<SuperHero> GetAllHeroes();
         SuperHero Get(string id);
         SuperHero Create(SuperHero hero);

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
-
 using SuperHeroAPI.Models;
 using SuperHeroAPI.Services.SuperHeroService;
 
@@ -15,9 +12,9 @@ namespace SuperHeroAPI.Controllers
         private readonly ISuperHeroService _superHeroService;
         public SuperHeroController(ISuperHeroService superHeroService)
         {
-           _superHeroService = superHeroService;
+            _superHeroService = superHeroService;
 
-           ObjectIdSerializer objectIdSerializer = new();
+            ObjectIdSerializer objectIdSerializer = new();
         }
 
         /// <summary>
@@ -45,7 +42,7 @@ namespace SuperHeroAPI.Controllers
             {
                 return NotFound($"Nie mam takiego id {id} w bazie.");
             }
-            
+
             return hero;
         }
 
@@ -72,14 +69,14 @@ namespace SuperHeroAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(string id, SuperHero hero)
         {
-            var existingStudent =_superHeroService.Get(id);
+            var existingStudent = _superHeroService.Get(id);
             if (existingStudent == null)
             {
                 return NotFound($"Nie mam takiego id {id} w bazie.");
             }
-            
+
             _superHeroService.Update(id, hero);
-            
+
             return NoContent();
         }
 
@@ -93,7 +90,7 @@ namespace SuperHeroAPI.Controllers
         public ActionResult Delete(string id)
         {
             var hero = _superHeroService.Get(id);
-            
+
             if (hero != null)
             {
                 return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
@@ -105,4 +102,3 @@ namespace SuperHeroAPI.Controllers
         }
     }
 }
-

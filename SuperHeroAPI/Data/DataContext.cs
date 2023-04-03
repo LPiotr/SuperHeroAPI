@@ -39,6 +39,5 @@ namespace SuperHeroAPI.Data
 
         public void DeleteSuperHero(string id) =>
             _superHeroes.DeleteOne(h => h.Id == id);
-
     }
 }
