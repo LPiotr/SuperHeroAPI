@@ -1,6 +1,21 @@
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using SuperHeroAPI.Models;
+using SuperHeroAPI.Services.SuperHeroService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<SuperHeroDatabaseSettings>(
+    builder.Configuration.GetSection(nameof(SuperHeroDatabaseSettings)));
+
+builder.Services.AddSingleton<ISuperHeroDatabaseSettings>(sp =>
+sp.GetRequiredService<IOptions<SuperHeroDatabaseSettings>>().Value);
+
+builder.Services.AddSingleton<IMongoClient>(s =>
+new MongoClient(builder.Configuration.GetValue<string>("SuperHeroDatabaseSettings:ConnectionString")));
+
+builder.Services.AddScoped<ISuperHeroService, SuperHeroService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
