@@ -27,7 +27,6 @@ namespace SuperHeroAPI.Controllers
             var result = await Task.FromResult(_superHeroService.GetAllHeroes());
 
             return await Task.FromResult(result);
-            //return Ok(result);
         }
 
         /// <summary>
@@ -41,7 +40,9 @@ namespace SuperHeroAPI.Controllers
         {
             var hero = _superHeroService.Get(id);
             if (hero == null)
+            {
                 return NotFound($"Nie mam takiego id {id} w bazie.");
+            }
             
             return hero;
         }
