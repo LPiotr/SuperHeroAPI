@@ -1,4 +1,4 @@
-# Projekt przygotowujący do pracy nad obroną pracy dyplomowej
+# Projekt przygotowujący do obrony pracy dyplomowej
 
 ## Co ma w sobie zawierać?
 * działające WebAPI
