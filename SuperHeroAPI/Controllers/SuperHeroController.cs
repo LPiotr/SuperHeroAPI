@@ -13,8 +13,6 @@ namespace SuperHeroAPI.Controllers
         public SuperHeroController(ISuperHeroService superHeroService)
         {
             _superHeroService = superHeroService;
-
-            ObjectIdSerializer objectIdSerializer = new();
         }
 
         /// <summary>
