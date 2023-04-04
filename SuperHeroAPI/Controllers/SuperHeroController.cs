@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Driver;
-
+using MongoDB.Bson.Serialization.Serializers;
 using SuperHeroAPI.Models;
 using SuperHeroAPI.Services.SuperHeroService;
 
@@ -9,12 +7,12 @@ namespace SuperHeroAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Put : ControllerBase
+    public class SuperHeroController : ControllerBase
     {
         private readonly ISuperHeroService _superHeroService;
-        public Put(ISuperHeroService superHeroService)
+        public SuperHeroController(ISuperHeroService superHeroService)
         {
-           _superHeroService = superHeroService;
+            _superHeroService = superHeroService;
         }
 
         /// <summary>
@@ -22,9 +20,9 @@ namespace SuperHeroAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<SuperHero>>> GetAllHeroes()
+        public async Task<ActionResult<List<SuperHero>>> Get()
         {
-            var result = await Task.FromResult(_superHeroService.GetAllHeroes());
+            var result = await Task.FromResult(_superHeroService.Get());
 
             return await Task.FromResult(result);
         }
@@ -33,8 +31,7 @@ namespace SuperHeroAPI.Controllers
         /// Get one hero specified by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        
+        /// <returns>Object</returns>
         [HttpGet("{id}")]
         public ActionResult<SuperHero> Get(string id)
         {
@@ -43,7 +40,7 @@ namespace SuperHeroAPI.Controllers
             {
                 return NotFound($"Nie mam takiego id {id} w bazie.");
             }
-            
+
             return hero;
         }
 
@@ -51,7 +48,7 @@ namespace SuperHeroAPI.Controllers
         /// Create new hero
         /// </summary>
         /// <param name="hero"></param>
-        /// <returns></returns>
+        /// <returns>Object collection</returns>
         [HttpPost]
         public ActionResult<SuperHero> Post([FromBody] SuperHero hero)
         {
@@ -66,18 +63,18 @@ namespace SuperHeroAPI.Controllers
         /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        /// 
+        ///
         [HttpPut("{id}")]
-        public ActionResult Update(string id, SuperHero hero)
+        public ActionResult Put(string id, SuperHero hero)
         {
-            var existingStudent =_superHeroService.Get(id);
+            var existingStudent = _superHeroService.Get(id);
             if (existingStudent == null)
             {
                 return NotFound($"Nie mam takiego id {id} w bazie.");
             }
-            
-            _superHeroService.Put(id, hero);
-            
+
+            _superHeroService.Update(id, hero);
+
             return NoContent();
         }
 
@@ -91,16 +88,15 @@ namespace SuperHeroAPI.Controllers
         public ActionResult Delete(string id)
         {
             var hero = _superHeroService.Get(id);
-            
-            if (hero != null)
+
+            if (hero == null)
             {
                 return NotFound($"Heros o tym id: {id} nie znajduje się w bazie");
             }
 
-            _superHeroService.Delete(id);
+            _superHeroService.Remove(id);
 
             return Ok($"Heros o tym Id = {id} został usunięty");
         }
     }
 }
-

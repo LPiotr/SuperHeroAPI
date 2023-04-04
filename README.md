@@ -6,3 +6,4 @@
   * opcjonalnie testy Specflow
   * testy integracyjne (też opcja)
   * konfiguracja bazy MongoDB - lokalnie lub chmura.
+
